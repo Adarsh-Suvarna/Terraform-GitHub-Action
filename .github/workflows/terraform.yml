@@ -26,7 +26,7 @@
          with:
            cli_config_credentials_hostname: 'terraform.adarshasuvarna.in'
            cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-           terraform_wrapper: true
+           terraform_wrapper: false
 
        - name : Terraform Format
          id: fmt   
