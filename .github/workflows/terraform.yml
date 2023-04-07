@@ -12,9 +12,14 @@
      runs-on: self-hosted
      permissions:
        pull-requests: write
-     defaults:
-       run:
-         working-directory: terraform-google-gcs
+    #  defaults:
+    #    run:
+    #      working-directory: terraform-google-gcs
+     strategy:
+       fail-fast: false
+       matrix:
+         path:
+           - terraform-google-gcs
      steps:
        - name: Checkout
          uses: actions/checkout@v3
@@ -28,20 +33,20 @@
 
        - name : Terraform Format
          id: fmt   
-         run: terraform fmt -check 
+         run: cd ${{ matrix.path }} && terraform fmt -check 
 
        - name: Terraform Init
          id: init
-         run: terraform init
+         run: cd ${{ matrix.path }} && terraform init
 
        - name: Terraform Validate  
          id: validate
-         run: terraform validate -no-color
+         run: cd ${{ matrix.path }} && terraform validate -no-color
 
        - name: Terraform Plan
          id: plan
          if: github.event_name == 'pull_request'
-         run: terraform plan -no-color -input=false
+         run: cd ${{ matrix.path }} && terraform plan -no-color -input=false
          continue-on-error: true
 
        - name: Update Pull Request
@@ -88,4 +93,4 @@
 
        - name: Terraform Apply
          if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-         run: terraform apply --auto-approve -input=false
+         run: cd ${{ matrix.path }} && terraform apply --auto-approve -input=false
