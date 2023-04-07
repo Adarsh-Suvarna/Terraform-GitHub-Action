@@ -1,7 +1,5 @@
  name: "Terraform"
 
-#  env:
-#    TF_TOKEN_terraform_adarshasuvarna_in: ${{ secrets.TF_API_TOKEN }}
  on:
    push:
      branches:
@@ -20,16 +18,13 @@
      steps:
        - name: Checkout
          uses: actions/checkout@v3
-         with:
-           terraform_wrapper: true
            
-
-      #  - name: Setup Terraform
-      #    uses: hashicorp/setup-terraform@v2
-      #    with:
-      #      cli_config_credentials_hostname: 'terraform.adarshasuvarna.in'
-      #      cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      #      terraform_wrapper: true
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v2
+         with:
+           cli_config_credentials_hostname: 'terraform.adarshasuvarna.in'
+           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+           terraform_wrapper: true
 
        - name : Terraform Format
          id: fmt   
@@ -58,8 +53,8 @@
            github-token: ${{ secrets.GITHUB_TOKEN }}
            script: |
              const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-             #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-             #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+             #### Terraform Initialization\`${{ steps.init.outcome }}\`
+             #### Terraform Validation\`${{ steps.validate.outcome }}\`
              <details><summary>Validation Output</summary>
 
              \`\`\`\n
@@ -68,7 +63,7 @@
 
              </details>
              
-             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+             #### Terraform Plan\`${{ steps.plan.outcome }}\`
 
              <details><summary>Show Plan</summary>
 
