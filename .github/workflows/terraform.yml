@@ -14,7 +14,7 @@
        pull-requests: write
      defaults:
        run:
-         working-directory: terraform-google-gcs
+         working-directory: ${{ env.tf_actions_working_dir }}
      steps:
        - name: Checkout
          uses: actions/checkout@v3
