@@ -1,7 +1,7 @@
  name: "Terraform"
 
- env:
-   TF_TOKEN_terraform_adarshasuvarna_in: ${{ secrets.TF_API_TOKEN }}
+#  env:
+#    TF_TOKEN_terraform_adarshasuvarna_in: ${{ secrets.TF_API_TOKEN }}
  on:
    push:
      branches:
@@ -12,9 +12,18 @@
    Terraform:
      name: "Terraform"
      runs-on: self-hosted
+     permissions:
+       pull-requests: write
      steps:
        - name: Checkout
          uses: actions/checkout@v3
+
+       - name: Setup Terraform
+         uses: hashicorp/setup-terraform@v2
+         with:
+           cli_config_credentials_hostname: 'terraform.adarshasuvarna.in'
+           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+           terraform_wrapper: true
 
        - name : Terraform Format
          id: fmt   
