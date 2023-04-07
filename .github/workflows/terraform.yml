@@ -26,10 +26,12 @@
        - name: Terraform Validate  
          id: validate
          run: terraform validate -no-color
-               
+
        - name: Terraform Plan
          id: plan
-         run: terraform plan
+         if: github.event_name == 'pull_request'
+         run: terraform plan -no-color -input=false
+         continue-on-error: true
 
        - name: Terraform Apply
          id: apply
