@@ -30,7 +30,7 @@
 
        - name : Terraform Format
          id: fmt   
-         run: cd ${{ env.tf_actions_working_dir }} && terraform fmt -check
+         run: cd Terraform-GitHub-Action/Terraform-GitHub-Action && terraform fmt -check
 
        - name: Terraform Init
          id: init
