@@ -2,15 +2,15 @@
 
  env:
    TERRAFORM_STEP: plan
-   TF_TOKEN_terraform_icicibankltd_com: ${{ secrets.TF_API_TOKEN }}
+   TF_TOKEN_terraform_adarshasuvarna_in: ${{ secrets.TF_API_TOKEN }}
  on:
    push:
      branches:
        - main
    pull_request:
  jobs:
-   terraform-core:
-     name: "Terraform Core"
+   Terraform:
+     name: "Terraform"
      runs-on: self-hosted
      steps:
        - name: Checkout
