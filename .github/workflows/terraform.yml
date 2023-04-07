@@ -33,7 +33,7 @@
 
        - name : Terraform Format
          id: fmt   
-         run: cd ${{ matrix.path }} && terraform fmt -check 
+         run: pwd && cd ${{ matrix.path }} && terraform fmt -check 
 
        - name: Terraform Init
          id: init
