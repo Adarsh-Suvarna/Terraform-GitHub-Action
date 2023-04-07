@@ -35,4 +35,3 @@ No requirements.
 | <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | The name of the bucket |
 | <a name="output_bucket_self_link"></a> [bucket\_self\_link](#output\_bucket\_self\_link) | The created storage bucket |
 | <a name="output_bucket_url"></a> [bucket\_url](#output\_bucket\_url) | The url of the bucket |
-
