@@ -30,7 +30,7 @@
 
        - name : Terraform Format
          id: fmt   
-         run: pwd && terraform fmt -check
+         run: pwd && terraform fmt -check 
 
        - name: Terraform Init
          id: init
