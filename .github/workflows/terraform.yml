@@ -51,11 +51,23 @@
 
        - name: Terraform Plan
          id: plan
-         if: github.event_name == 'pull_request'
+         continue-on-error: true
          run: |
            cd terraform/${{ matrix.path }}
-           terraform plan -input=false -no-color
-         continue-on-error: true
+           terraform plan -input=false -no-color -out=tfplan \
+           && terraform show -no-color tfplan
+
+       - name: Reformat Plan
+         run: |
+           echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
+           | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt
+
+       - name: Put Plan in Env Var
+         run: |
+           PLAN=$(cat plan.txt)
+           echo "PLAN<<EOF" >> $GITHUB_ENV
+           echo "$PLAN" >> $GITHUB_ENV
+           echo "EOF" >> $GITHUB_ENV
 
       #  - name: Update Pull Request
       #    uses: actions/github-script@v6
@@ -103,16 +115,16 @@
            repo-token-user-login: 'github-actions[bot]'
            message: |
              ## ${{ matrix.path }} plan
-             ```
-             ${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}
+             ```diff
+             ${{ env.PLAN }}
              ```
              
-       - name: Terraform Plan Status
-         if: steps.plan.outcome == 'failure'
-         run: exit 1
+      #  - name: Terraform Plan Status
+      #    if: steps.plan.outcome == 'failure'
+      #    run: exit 1
 
-       - name: Terraform Apply
-         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-         run: |
-           cd terraform/${{ matrix.path }}
-           terraform apply --auto-approve -input=false
+      #  - name: Terraform Apply
+      #    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      #    run: |
+      #      cd terraform/${{ matrix.path }}
+      #      terraform apply --auto-approve -input=false
