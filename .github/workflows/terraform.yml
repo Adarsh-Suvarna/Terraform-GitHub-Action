@@ -12,9 +12,9 @@
      runs-on: self-hosted
      permissions:
        pull-requests: write
-    #  defaults:
-    #    run:
-    #      working-directory: ./
+     defaults:
+       run:
+         working-directory: ../terraform-google-gcs
      steps:
        - name: Checkout
          uses: actions/checkout@v3
