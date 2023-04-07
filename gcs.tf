@@ -14,7 +14,7 @@ data "google_kms_crypto_key" "crypto_key" {
 module "cloud_bucket" {
   for_each           = { for x in var.list_of_cloud_buckets : x.bucket_name => x }
   source             = "terraform.adarshasuvarna.in/Niveus-Solutions-Pvt-Ltd/tfe/gcp//modules/terraform-google-cloud-storage"
-  version            = "1.0.3"
+  version            = "1.0.4"
   name               = each.value.bucket_name
   project_id         = each.value.project_id
   labels             = each.value.labels
