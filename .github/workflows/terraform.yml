@@ -44,18 +44,26 @@
            script: |
              const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
              #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
              #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+             <details><summary>Validation Output</summary>
+
+             \`\`\`\n
+             ${{ steps.validate.outputs.stdout }}
+             \`\`\`
+
+             </details>
+             
+             #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
 
              <details><summary>Show Plan</summary>
 
-             \`\`\`terraform\n
+             \`\`\`\n
              ${process.env.PLAN}
              \`\`\`
 
              </details>
 
-             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+             *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
              github.rest.issues.createComment({
                issue_number: context.issue.number,
@@ -63,6 +71,7 @@
                repo: context.repo.repo,
                body: output
              })
+
        - name: Terraform Plan Status
          if: steps.plan.outcome == 'failure'
          run: exit 1
