@@ -16,5 +16,4 @@ terraform {
 }
 
 provider "google" {
-  region = "asia-south1"
 }
