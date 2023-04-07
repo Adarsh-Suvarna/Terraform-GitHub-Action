@@ -1,7 +1,6 @@
  name: "Terraform"
 
  env:
-   TERRAFORM_STEP: plan
    TF_TOKEN_terraform_adarshasuvarna_in: ${{ secrets.TF_API_TOKEN }}
  on:
    push:
@@ -23,3 +22,7 @@
        - name: Terraform Plan
          id: plan
          run: terraform plan
+
+       - name: Terraform Apply
+         id: plan
+         run: terraform apply --auto-approve
