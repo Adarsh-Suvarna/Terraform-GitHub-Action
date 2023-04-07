@@ -54,7 +54,7 @@
          if: github.event_name == 'pull_request'
          run: |
            cd terraform/${{ matrix.path }}
-           terraform plan -input=false -no-color
+           terraform plan -input=false
          continue-on-error: true
 
        - name: Update Pull Request
