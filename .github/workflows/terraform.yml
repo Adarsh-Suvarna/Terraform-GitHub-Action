@@ -21,7 +21,7 @@ jobs:
         path:
           - uat
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
           
       - name: Setup Terraform
@@ -119,12 +119,71 @@ jobs:
             ${{ env.PLAN }}
             ```
             
-     #  - name: Terraform Plan Status
-     #    if: steps.plan.outcome == 'failure'
-     #    run: exit 1
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
 
-     #  - name: Terraform Apply
-     #    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-     #    run: |
-     #      cd terraform/${{ matrix.path }}
-     #      terraform apply --auto-approve -input=false
+      - name: Inform on PR that Apply is Running
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: mshick/add-pr-comment@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            ***Running terraform apply***
+            Results will display here momentarily...
+
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
+        id: apply
+        continue-on-error: true
+        run: |
+          cd terraform/${{ matrix.path }}
+          terraform apply \
+            -input=false \
+            -no-color \
+            tfplan
+
+      - name: Post Plan and Apply to GitHub PR
+        if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
+        uses: mshick/add-pr-comment@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            Applying **${{ matrix.path }}**:
+
+            ```diff
+            ${{ env.PLAN }}
+            ```
+
+            ```
+            ${{ steps.apply.outputs.stdout }}
+            ```
+
+      - name: Post Plan Failure
+        if: steps.plan.outcome == 'failure'
+        uses: mshick/add-pr-comment@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            Plan failed for **${{ matrix.path }}**:
+
+            ```
+            ${{ steps.plan.outputs.stderr }}
+            ```
+
+      - name: Post Apply Failure
+        if: steps.apply.outcome == 'failure'
+        uses: mshick/add-pr-comment@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            Apply failed for **${{ matrix.path }}**:
+
+            ```
+            ${{ steps.apply.outputs.stderr }}
+            ```
