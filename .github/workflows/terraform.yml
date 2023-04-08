@@ -12,9 +12,6 @@ jobs:
     runs-on: self-hosted
     permissions:
       pull-requests: write
-   #  defaults:
-   #    run:
-   #      working-directory: terraform-google-gcs
     strategy:
       fail-fast: false
       matrix:
@@ -68,44 +65,6 @@ jobs:
           echo "PLAN<<EOF" >> $GITHUB_ENV
           echo "$PLAN" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-
-     #  - name: Update Pull Request
-     #    uses: actions/github-script@v6
-     #    if: github.event_name == 'pull_request'
-     #    env:
-     #      PLAN: "${{ steps.plan.outputs.stdout }}"
-     #    with:
-     #      github-token: ${{ secrets.GITHUB_TOKEN }}
-     #      script: |
-     #        const output = `#### Terraform Format and Style\`${{ steps.fmt.outcome }}\`
-     #        #### Terraform Initialization\`${{ steps.init.outcome }}\`
-     #        #### Terraform Validation\`${{ steps.validate.outcome }}\`
-     #        <details><summary>Validation Output</summary>
-
-     #        \`\`\`\n
-     #        ${{ steps.validate.outputs.stdout }}
-     #        \`\`\`
-
-     #        </details>
-            
-     #        #### Terraform Plan\`${{ steps.plan.outcome }}\`
-
-     #        <details><summary>Show Plan</summary>
-
-     #        \`\`\`\n
-     #        ${process.env.PLAN}
-     #        \`\`\`
-
-     #        </details>
-
-     #        *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
-
-     #        github.rest.issues.createComment({
-     #          issue_number: context.issue.number,
-     #          owner: context.repo.owner,
-     #          repo: context.repo.repo,
-     #          body: output
-     #        })
 
       - name: Post Plan to GitHub PR
         uses: mshick/add-pr-comment@v1
