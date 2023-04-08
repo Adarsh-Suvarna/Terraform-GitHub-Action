@@ -67,7 +67,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Post Plan to GitHub PR
-        uses: mshick/add-pr-comment@v1
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
         with:
           allow-repeats: true
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -84,7 +84,7 @@ jobs:
 
       - name: Inform on PR that Apply is Running
         if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
-        uses: mshick/add-pr-comment@v1
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]'
@@ -106,7 +106,7 @@ jobs:
 
       - name: Post Plan and Apply to GitHub PR
         if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
-        uses: mshick/add-pr-comment@v1
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]'
@@ -123,7 +123,7 @@ jobs:
 
       - name: Post Plan Failure
         if: steps.plan.outcome == 'failure'
-        uses: mshick/add-pr-comment@v1
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]'
@@ -136,7 +136,7 @@ jobs:
 
       - name: Post Apply Failure
         if: steps.apply.outcome == 'failure'
-        uses: mshick/add-pr-comment@v1
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]'
