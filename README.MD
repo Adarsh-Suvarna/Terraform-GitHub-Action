@@ -7,11 +7,11 @@ In this repository we will explore managing infrastructure with Terraform and Gi
 
 > HashiCorp Terraform is an infrastructure as code tool that lets you define both cloud and on-prem resources in human-readable configuration files that you can version, reuse, and share. You can then use a consistent workflow to provision and manage all of your infrastructure throughout its lifecycle. Terraform can manage low-level components like compute, storage, and networking resources, as well as high-level components like DNS entries and SaaS features.
 
- It has been widely adopted by organizations and IT professionals over the years and is recognized as one of the most influential tools in the space. Its cloud-agnostic characteristics, infrastructure as code principles, modularity concepts, and automation capabilities make it a powerful tool that facilitates infrastructure management in any environment. 
+ > It has been widely adopted by organizations and IT professionals over the years and is recognized as one of the most influential tools in the space. Its cloud-agnostic characteristics, infrastructure as code principles, modularity concepts, and automation capabilities make it a powerful tool that facilitates infrastructure management in any environment. 
 
-Terraform keeps and manages an internal state of its managed infrastructure and is used to create plans, track changes, and enable safe modifications in live environments. One of the reasons that led to Terraform’s success has been the intuitive and easy-to-understand workflow. 
+> Terraform keeps and manages an internal state of its managed infrastructure and is used to create plans, track changes, and enable safe modifications in live environments. One of the reasons that led to Terraform’s success has been the intuitive and easy-to-understand workflow. 
 
-The core Terraform workflow consists of three concrete stages. First, we generate the Infrastructure as Code configuration files representing our environment’s desired state. Next, we check the output of the generated plan based on our newly edited manifests. After carefully reviewing the changes, we apply the plan to provision the infrastructure changes and resources.
+> The core Terraform workflow consists of three concrete stages. First, we generate the Infrastructure as Code configuration files representing our environment’s desired state. Next, we check the output of the generated plan based on our newly edited manifests. After carefully reviewing the changes, we apply the plan to provision the infrastructure changes and resources.
 
 ## Terraform Enterprise
 
