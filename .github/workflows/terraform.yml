@@ -31,7 +31,6 @@ jobs:
       - name : Terraform Format
         id: fmt   
         run: |
-          pwd
           cd application/application-01/${{ matrix.path }}
           terraform fmt -check -diff -recursive
 
