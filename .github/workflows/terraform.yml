@@ -41,109 +41,109 @@ jobs:
           cd application/application-01/${{ matrix.path }}
           terraform init -input=false
 
-      # - name: Terraform Validate  
-      #   id: validate
-      #   run: |
-      #     cd application/application-01/${{ matrix.path }}
-      #     terraform validate -no-color
+      - name: Terraform Validate  
+        id: validate
+        run: |
+          cd application/application-01/${{ matrix.path }}
+          terraform validate -no-color
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   continue-on-error: true
-      #   run: |
-      #     cd application/application-01/${{ matrix.path }}
-      #     terraform plan -input=false -no-color -out=tfplan \
-      #     && terraform show -no-color tfplan
+      - name: Terraform Plan
+        id: plan
+        continue-on-error: true
+        run: |
+          cd application/application-01/${{ matrix.path }}
+          terraform plan -input=false -no-color -out=tfplan \
+          && terraform show -no-color tfplan
 
-      # - name: Reformat Plan
-      #   run: |
-      #     echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
-      #     | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt
+      - name: Reformat Plan
+        run: |
+          echo '${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}' \
+          | sed -E 's/^([[:space:]]+)([-+])/\2\1/g' > plan.txt
 
-      # - name: Put Plan in Env Var
-      #   run: |
-      #     PLAN=$(cat plan.txt)
-      #     echo "PLAN<<EOF" >> $GITHUB_ENV
-      #     echo "$PLAN" >> $GITHUB_ENV
-      #     echo "EOF" >> $GITHUB_ENV
+      - name: Put Plan in Env Var
+        run: |
+          PLAN=$(cat plan.txt)
+          echo "PLAN<<EOF" >> $GITHUB_ENV
+          echo "$PLAN" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
-      # - name: Post Plan to GitHub PR
-      #   uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
-      #   with:
-      #     allow-repeats: true
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     repo-token-user-login: 'github-actions[bot]'
-      #     message: |
-      #       ## ${{ matrix.path }} plan
-      #       ```diff
-      #       ${{ env.PLAN }}
-      #       ```
+      - name: Post Plan to GitHub PR
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
+        with:
+          allow-repeats: true
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            ## ${{ matrix.path }} plan
+            ```diff
+            ${{ env.PLAN }}
+            ```
             
-      # - name: Terraform Plan Status
-      #   if: steps.plan.outcome == 'failure'
-      #   run: exit 1
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
 
-      # - name: Inform on PR that Apply is Running
-      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
-      #   uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     repo-token-user-login: 'github-actions[bot]'
-      #     message: |
-      #       ***Running terraform apply***
-      #       Results will display here momentarily...
+      - name: Inform on PR that Apply is Running
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            ***Running terraform apply***
+            Results will display here momentarily...
 
 
-      # - name: Terraform Apply
-      #   if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
-      #   id: apply
-      #   continue-on-error: true
-      #   run: |
-      #     cd application/application-01/${{ matrix.path }}
-      #     terraform apply \
-      #       -input=false \
-      #       -no-color \
-      #       tfplan
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.plan.outcome == 'success'
+        id: apply
+        continue-on-error: true
+        run: |
+          cd application/application-01/${{ matrix.path }}
+          terraform apply \
+            -input=false \
+            -no-color \
+            tfplan
 
-      # - name: Post Plan and Apply to GitHub PR
-      #   if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
-      #   uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     repo-token-user-login: 'github-actions[bot]'
-      #     message: |
-      #       Applying **${{ matrix.path }}**:
+      - name: Post Plan and Apply to GitHub PR
+        if: steps.plan.outcome == 'success' && steps.apply.outcome == 'success'
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            Applying **${{ matrix.path }}**:
 
-      #       ```diff
-      #       ${{ env.PLAN }}
-      #       ```
+            ```diff
+            ${{ env.PLAN }}
+            ```
 
-      #       ```
-      #       ${{ steps.apply.outputs.stdout }}
-      #       ```
+            ```
+            ${{ steps.apply.outputs.stdout }}
+            ```
 
-      # - name: Post Plan Failure
-      #   if: steps.plan.outcome == 'failure'
-      #   uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     repo-token-user-login: 'github-actions[bot]'
-      #     message: |
-      #       Plan failed for **${{ matrix.path }}**:
+      - name: Post Plan Failure
+        if: steps.plan.outcome == 'failure'
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            Plan failed for **${{ matrix.path }}**:
 
-      #       ```
-      #       ${{ steps.plan.outputs.stderr }}
-      #       ```
+            ```
+            ${{ steps.plan.outputs.stderr }}
+            ```
 
-      # - name: Post Apply Failure
-      #   if: steps.apply.outcome == 'failure'
-      #   uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
-      #   with:
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     repo-token-user-login: 'github-actions[bot]'
-      #     message: |
-      #       Apply failed for **${{ matrix.path }}**:
+      - name: Post Apply Failure
+        if: steps.apply.outcome == 'failure'
+        uses: Adarsh-Suvarna/GitHub-PR-Comment@v1.0.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            Apply failed for **${{ matrix.path }}**:
 
-      #       ```
-      #       ${{ steps.apply.outputs.stderr }}
-      #       ```
+            ```
+            ${{ steps.apply.outputs.stderr }}
+            ```
