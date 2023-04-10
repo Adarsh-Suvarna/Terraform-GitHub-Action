@@ -32,7 +32,7 @@ jobs:
         id: fmt   
         run: |
           pwd
-          cd application/application-01/${{ matrix.path }}
+          cd terraform/${{ matrix.path }}
           terraform fmt -check -diff -recursive
 
       - name: Terraform Init
