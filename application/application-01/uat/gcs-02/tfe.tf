@@ -10,7 +10,7 @@ terraform {
     organization = "Niveus-Solutions-Pvt-Ltd"
 
     workspaces {
-      name = "Terraform-GitHub-Action"
+      name = "gcs-02"
     }
   }
 }
