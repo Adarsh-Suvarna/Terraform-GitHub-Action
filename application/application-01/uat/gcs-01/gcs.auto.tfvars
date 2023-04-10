@@ -1,7 +1,7 @@
 list_of_cloud_buckets = [
   {
     project_id         = "learn-gcp-devops-adarsh"
-    bucket_name        = "learn-gcpdevops-987654"
+    bucket_name        = "learn-gcpdevops-987654-gcs-01"
     location           = "asia-south1"
     log_bucket         = "log-bucket"
     bucket_policy_only = true
