@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         path:
-          - uat
+          - uat/gcs-01
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -32,7 +32,7 @@ jobs:
         id: fmt   
         run: |
           pwd
-          cd terraform/${{ matrix.path }}
+          cd application/application-01/${{ matrix.path }}
           terraform fmt -check -diff -recursive
 
       - name: Terraform Init
