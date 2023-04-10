@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         path:
-          - uat
+          - uat/gcs-01
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -31,26 +31,26 @@ jobs:
       - name : Terraform Format
         id: fmt   
         run: |
-          cd terraform/${{ matrix.path }}
+          cd application/application-01/${{ matrix.path }}
           terraform fmt -check -diff -recursive
 
       - name: Terraform Init
         id: init
         run: |
-          cd terraform/${{ matrix.path }}
+          cd application/application-01/${{ matrix.path }}
           terraform init -input=false
 
       - name: Terraform Validate  
         id: validate
         run: |
-          cd terraform/${{ matrix.path }}
+          cd application/application-01/${{ matrix.path }}
           terraform validate -no-color
 
       - name: Terraform Plan
         id: plan
         continue-on-error: true
         run: |
-          cd terraform/${{ matrix.path }}
+          cd application/application-01/${{ matrix.path }}
           terraform plan -input=false -no-color -out=tfplan \
           && terraform show -no-color tfplan
 
@@ -98,7 +98,7 @@ jobs:
         id: apply
         continue-on-error: true
         run: |
-          cd terraform/${{ matrix.path }}
+          cd application/application-01/${{ matrix.path }}
           terraform apply \
             -input=false \
             -no-color \
