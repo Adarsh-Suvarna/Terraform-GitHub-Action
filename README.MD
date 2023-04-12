@@ -32,12 +32,17 @@ The workflow will:
 ### GitHub Repository Structure
 
 Application directory will be the root directory for all Applications. Each application directory would contain subdirectories for different Applications. Each application has per environment sub directory. Each environment directory would contain two subdirectories for app and core infra respectively.
+  <p>
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/git-workflow.jpg">
+  </p>
 
 ### Create Workspace in the Terraform Enterprise
 
 1. Login to the Terraform Enterprise application (https://terraform.adarshasuvarna.in)
 2. Create CLI-driven workflow Workspace in the Terraform Enterprise.
-
+  <p>
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/tfe-workspace.png">
+  </p>
 3. Once workspace is created add a code block to your Terraform configuration files to set up the Terraform Enterprise integration . You can add this configuration block to any ```.tf``` file in the directory where you run Terraform.
 Example code:
 ```diff
