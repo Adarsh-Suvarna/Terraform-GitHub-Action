@@ -172,11 +172,20 @@ We use if conditionals to check the steps context so only the appropriate steps 
 ### Observations
 
 Below image shows the Git-Hub action steps whenever a PR is created against the main branch.
+
   <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/pr-steps.png">
   </p>
 
 Below image shows the Git-Hub action steps whenever PR is merged to the main branch.
+
   <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/merge-actions.png">
   </p>
+
   <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/merge-steps.png">
+  </p>
+
+Once Terraform apply is executed successfully verify the resources that are deployed in the respective cloud service providers. Do the post deployment step by validating the resources created as per expectation and confirm
+the same.
+
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/gcp-gcs.png">
   </p>
