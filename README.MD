@@ -33,7 +33,7 @@ The workflow will:
 
 Application directory will be the root directory for all Applications. Each application directory would contain subdirectories for different Applications. Each application has per environment sub directory. Each environment directory would contain two subdirectories for app and core infra respectively.
   <p>
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/git-workflow.jpg">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/git-workflow.jpg">
   </p>
 
 ### Create Workspace in the Terraform Enterprise
@@ -41,7 +41,7 @@ Application directory will be the root directory for all Applications. Each appl
 1. Login to the Terraform Enterprise application (https://terraform.adarshasuvarna.in)
 2. Create CLI-driven workflow Workspace in the Terraform Enterprise.
   <p>
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/tfe-workspace.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/tfe-workspace.png">
   </p>
 3. Once workspace is created add a code block to your Terraform configuration files to set up the Terraform Enterprise integration . You can add this configuration block to any ```.tf``` file in the directory where you run Terraform.
 Example code:
@@ -83,8 +83,9 @@ The ```-no-color``` flag is set because we only want plain-text output. This wil
 
 Now if we create a PR we will get a plan comment that looks something like this
   <p>
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/pr-terraform-plan.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/pr-terraform-plan.png">
   </p>
+
 ### Remove refresh messages
 
 If you’ve ever worked with a large Terraform module you know that the “Refreshing state…” lines can go on and on and on. There can often be hundreds of lines saying this. When reviewing plan output these messages are not useful so lets strip them out. We do still want refresh to run. We simply don’t want to see its output in our plan message.
@@ -166,28 +167,28 @@ The workflow has some control flow logic as there are three outcomes we need to 
 - Both the plan and the apply succeed
 
 We use if conditionals to check the steps context so only the appropriate steps are executed.  <p>
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/terraform-apply.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/terraform-apply.png">
   </p>
 
 ### Observations
 
 Below image shows the Git-Hub action steps whenever a PR is created against the main branch.
 
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/pr-steps.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/pr-steps.png">
   </p>
 
 Below image shows the Git-Hub action steps whenever PR is merged to the main branch.
 
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/merge-actions.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/merge-actions.png">
   </p>
 
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/merge-steps.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/merge-steps.png">
   </p>
 
 Once Terraform apply is executed successfully verify the resources that are deployed in the respective cloud service providers. Do the post deployment step by validating the resources created as per expectation and confirm
 the same.
 
-  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/gcp-gcs.png">
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/gcp-gcs.png">
   </p>
 
 ## Contact Me
