@@ -58,8 +58,9 @@ terraform {
   cloud {
     hostname = "terraform.adarshasuvarna.in"
     organization = "Niveus-Solutions-Pvt-Ltd"
+
     workspaces {
-      name = "application-01"
+      name = "dummy-application"
     }
   }
 }
