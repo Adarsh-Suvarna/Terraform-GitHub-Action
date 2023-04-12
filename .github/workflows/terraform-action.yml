@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         path:
-          - application-01/uat/gcs-01
-          - application-01/uat/gcs-02
+          - dummy-application/uat/core
+          - dummy-application/uat/app
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
