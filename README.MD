@@ -82,7 +82,9 @@ The ```-no-color``` flag is set because we only want plain-text output. This wil
 ### Improvements to plan output
 
 Now if we create a PR we will get a plan comment that looks something like this
-
+  <p>
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/pr-terraform-plan.png">
+  </p>
 ### Remove refresh messages
 
 If you’ve ever worked with a large Terraform module you know that the “Refreshing state…” lines can go on and on and on. There can often be hundreds of lines saying this. When reviewing plan output these messages are not useful so lets strip them out. We do still want refresh to run. We simply don’t want to see its output in our plan message.
@@ -163,4 +165,18 @@ The workflow has some control flow logic as there are three outcomes we need to 
 - The plan succeeds and the apply fails
 - Both the plan and the apply succeed
 
-We use if conditionals to check the steps context so only the appropriate steps are executed.
+We use if conditionals to check the steps context so only the appropriate steps are executed.  <p>
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/terraform-apply.png">
+  </p>
+
+### Observations
+
+Below image shows the Git-Hub action steps whenever a PR is created against the main branch.
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/pr-steps.png">
+  </p>
+
+Below image shows the Git-Hub action steps whenever PR is merged to the main branch.
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/merge-actions.png">
+  </p>
+  <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/uat/img/merge-steps.png">
+  </p>
