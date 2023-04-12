@@ -212,7 +212,8 @@ Below image shows the Git-Hub action steps whenever PR is merged to the main bra
   <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/merge-steps.png">
   </p>
 
-Once Terraform apply is executed successfully verify the resources that are deployed in the respective cloud service providers. Do the post deployment step by validating the resources created as per expectation and confirm
+Once Terraform apply is executed successfully verify the resources that are deployed in the respective cloud service providers. 
+Do the post deployment step by validating the resources created as per expectation and confirm
 the same.
 
   <img src="https://github.com/Adarsh-Suvarna/Terraform-GitHub-Action/blob/main/img/gcp-gcs.png">
